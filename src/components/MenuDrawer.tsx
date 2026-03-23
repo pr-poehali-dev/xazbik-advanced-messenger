@@ -105,9 +105,12 @@ export default function MenuDrawer({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-5" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
-          <p className="font-display font-bold text-white/70 text-sm">XazbikGram</p>
-          <p className="text-white/30 text-xs mt-0.5">версия 1.2.4</p>
+        <div className="flex items-center gap-3 px-6 py-5" style={{ borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <img src="https://cdn.poehali.dev/projects/7687c169-bc8e-4c9f-962b-14d548a45af5/bucket/f5ee4df8-09eb-48a2-8181-fe16d4d1c736.png" alt="XG" className="w-8 h-8 rounded-lg object-contain" />
+          <div>
+            <p className="font-display font-bold text-white/70 text-sm">XazbikGram</p>
+            <p className="text-white/30 text-xs">версия 1.2.4</p>
+          </div>
         </div>
       </div>
     </>

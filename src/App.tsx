@@ -250,6 +250,60 @@ export default function App() {
             onNewChannel={() => setNewChatMode('channel')}
             onOpenProfile={() => { setRightPanel('profile'); setIsMobileChat(false); }}
             onOpenSearch={() => setShowSearch(true)}
+            onArchiveChat={(chatId) => {
+              updateState(prev => ({
+                ...prev,
+                chats: prev.chats.map(c =>
+                  c.id === chatId ? { ...c, archived: !c.archived } : c
+                ),
+              }));
+            }}
+            onPinChat={(chatId) => {
+              updateState(prev => ({
+                ...prev,
+                chats: prev.chats.map(c =>
+                  c.id === chatId ? { ...c, pinned: !c.pinned } : c
+                ),
+              }));
+            }}
+            onMuteChat={(chatId) => {
+              updateState(prev => ({
+                ...prev,
+                chats: prev.chats.map(c =>
+                  c.id === chatId ? { ...c, muted: !c.muted } : c
+                ),
+              }));
+            }}
+            onMarkUnread={(chatId) => {
+              updateState(prev => ({
+                ...prev,
+                chats: prev.chats.map(c =>
+                  c.id === chatId ? { ...c, unread: c.unread > 0 ? c.unread : 1 } : c
+                ),
+              }));
+            }}
+            onClearHistory={(chatId) => {
+              updateState(prev => ({
+                ...prev,
+                messages: { ...prev.messages, [chatId]: [] },
+                chats: prev.chats.map(c =>
+                  c.id === chatId ? { ...c, lastMessage: undefined, unread: 0 } : c
+                ),
+              }));
+            }}
+            onDeleteChat={(chatId) => {
+              updateState(prev => {
+                const chats = prev.chats.filter(c => c.id !== chatId);
+                const messages = { ...prev.messages };
+                delete messages[chatId];
+                return { ...prev, chats, messages };
+              });
+              if (activeChatId === chatId) {
+                setActiveChatId(null);
+                setRightPanel(null);
+                setIsMobileChat(false);
+              }
+            }}
           />
         </div>
       </div>
@@ -299,10 +353,10 @@ export default function App() {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center gap-4 select-none">
             <div
-              className="w-24 h-24 rounded-3xl flex items-center justify-center text-4xl animate-bounce-in"
+              className="w-24 h-24 rounded-3xl flex items-center justify-center animate-bounce-in overflow-hidden"
               style={{ background: 'rgba(59,158,255,0.08)', border: '1px solid rgba(59,158,255,0.12)' }}
             >
-              ✈️
+              <img src="https://cdn.poehali.dev/projects/7687c169-bc8e-4c9f-962b-14d548a45af5/bucket/f5ee4df8-09eb-48a2-8181-fe16d4d1c736.png" alt="XG" className="w-16 h-16 object-contain" />
             </div>
             <div className="text-center">
               <p className="font-display font-bold text-xl" style={{ color: 'rgba(255,255,255,0.3)' }}>XazbikGram</p>

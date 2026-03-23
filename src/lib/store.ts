@@ -10,6 +10,7 @@ export interface User {
   hidePhone?: boolean;
   hideBio?: boolean;
   hideAvatar?: boolean;
+  password?: string;
 }
 
 export interface Message {
@@ -49,6 +50,8 @@ export interface Chat {
   muted?: boolean;
   wallpaper?: string;
   themeColor?: string;
+  archived?: boolean;
+  blocked?: string[];
 }
 
 export interface Folder {
@@ -94,7 +97,7 @@ const DEFAULT_STATE: AppState = {
   accentColor: '#3b9eff',
 };
 
-const STORAGE_KEY = 'xazbikgram_v1';
+const STORAGE_KEY = 'xazbikgram_v2';
 
 export function loadState(): AppState {
   try {
